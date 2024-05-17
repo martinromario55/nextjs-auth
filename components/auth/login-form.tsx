@@ -22,7 +22,7 @@ import { useState, useTransition } from 'react'
 
 const LoginForm = () => {
   const [isPending, startTransition] = useTransition()
-  const [error, seterror] = useState<string | undefined>('')
+  const [error, setError] = useState<string | undefined>('')
   const [success, setSuccess] = useState<string | undefined>('')
 
   const form = useForm<z.infer<typeof LoginSchema>>({
@@ -35,13 +35,13 @@ const LoginForm = () => {
 
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
     // console.log(values)
-    seterror('')
+    setError('')
     setSuccess('')
 
     startTransition(() => {
       login(values).then(data => {
-        seterror(data.error)
-        setSuccess(data.success)
+        setError(data?.error)
+        // setSuccess(data?.success)
       })
     })
   }
